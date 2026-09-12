@@ -897,155 +897,300 @@ body {
 
 /* ===== END IPHONE SAFARI OPTIMIZATION ===== */
 
-/* ===== NFC IPHONE ABOVE-THE-FOLD HERO ===== */
+
+
+
+/* ===== MOBILE EXECUTIVE IDENTITY SPLIT ===== */
 
 @media (max-width: 590px) {
 
   /*
-    Compact portrait:
-    show the actual photo instead of cropping tightly into the face.
+    MOBILE GOAL:
+    Photo left.
+    Identity right.
+    Bio + resume button immediately underneath.
+  */
+
+  .hero {
+    display: grid;
+    grid-template-columns: 42% 58%;
+    grid-template-rows: auto auto auto auto auto;
+    min-height: 0;
+    width: 100%;
+    align-items: stretch;
+  }
+
+  /*
+    Let the contents of hero-copy participate
+    directly in the mobile grid.
+  */
+  .hero-copy {
+    display: contents;
+  }
+
+  /*
+    PORTRAIT
+    Keep enough crop to show face, jacket and shoulders
+    without using half the screen.
   */
   .portrait-wrap {
-    min-height: 0;
-    height: 220px;
-    max-height: 220px;
+    position: relative;
 
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
+    grid-column: 1;
+    grid-row: 1 / 5;
+
+    width: 100%;
+    height: 245px;
+    min-height: 245px;
+    max-height: 245px;
 
     overflow: hidden;
 
-    background:
-      radial-gradient(
-        circle at 50% 35%,
-        rgba(31, 61, 98, .72),
-        rgba(7, 19, 33, 1) 72%
-      );
+    border-left: 0;
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+
+    background: #081728;
   }
 
   .portrait {
-    position: relative;
-    inset: auto;
+    position: absolute;
+    inset: 0;
 
-    width: auto;
-    height: 215px;
-    max-width: 94%;
+    width: 100%;
+    height: 100%;
 
-    object-fit: contain;
-    object-position: center bottom;
+    object-fit: cover;
 
-    margin: 0 auto;
+    /*
+      Tuned to retain face + shoulders.
+      Adjust second percentage later if needed.
+    */
+    object-position: 50% 29%;
 
     filter: saturate(.94) contrast(1.02);
   }
 
-  /*
-    Remove the heavy image overlay because the image
-    is now contained rather than full-bleed.
-  */
   .portrait-wrap::after {
     background:
       linear-gradient(
         to top,
-        rgba(5, 11, 19, .20),
-        transparent 32%
+        rgba(5,11,19,.22),
+        transparent 38%
       );
   }
 
   .portrait-line {
-    left: 22px;
-    bottom: 16px;
-    width: 48px;
+    left: 16px;
+    bottom: 14px;
+    width: 40px;
   }
 
 
   /* -----------------------------
-     COMPACT FIRST SCREEN
+     RIGHT-SIDE IDENTITY
      ----------------------------- */
 
-  .hero-copy {
-    padding: 23px 20px 27px;
-  }
-
   .eyebrow {
-    margin: 0 0 10px;
-    font-size: 8px;
-    letter-spacing: .15em;
+    display: none;
   }
 
   h1 {
-    font-size: clamp(43px, 13.5vw, 55px);
-    line-height: .88;
+    grid-column: 2;
+    grid-row: 1;
+
+    align-self: end;
+
+    margin: 0;
+
+    padding:
+      28px
+      max(16px, calc(env(safe-area-inset-right) + 16px))
+      8px
+      17px;
+
+    font-size: clamp(38px, 10.5vw, 48px);
+    line-height: .90;
     letter-spacing: -.055em;
   }
 
   .headline {
-    margin-top: 15px;
-    font-size: 13.5px;
-    line-height: 1.3;
+    grid-column: 2;
+    grid-row: 2;
+
+    margin: 0;
+
+    padding:
+      5px
+      max(15px, calc(env(safe-area-inset-right) + 15px))
+      0
+      17px;
+
+    font-size: 12.5px;
+    line-height: 1.35;
+    font-weight: 680;
+  }
+
+  .headline span {
+    margin: 0 2px;
   }
 
   .education {
-    margin-top: 7px;
-    font-size: 11.5px;
-    line-height: 1.4;
-  }
+    grid-column: 2;
+    grid-row: 3;
 
-  .bio {
-    margin: 15px 0 18px;
-    font-size: 12.5px;
-    line-height: 1.5;
+    margin: 0;
+
+    padding:
+      9px
+      max(15px, calc(env(safe-area-inset-right) + 15px))
+      24px
+      17px;
+
+    align-self: start;
+
+    color: var(--muted);
+
+    font-size: 10.5px;
+    line-height: 1.45;
   }
 
 
   /* -----------------------------
-     RESUME CTA
+     FULL-WIDTH BIO
+     ----------------------------- */
+
+  .bio {
+    grid-column: 1 / -1;
+    grid-row: 5;
+
+    max-width: none;
+
+    margin: 0;
+
+    padding:
+      22px
+      max(20px, calc(env(safe-area-inset-right) + 20px))
+      18px
+      max(20px, calc(env(safe-area-inset-left) + 20px));
+
+    color: #c6d0dc;
+
+    font-size: 12.5px;
+    line-height: 1.52;
+  }
+
+
+  /* -----------------------------
+     RESUME BUTTON
      ----------------------------- */
 
   .resume-actions {
+    grid-column: 1 / -1;
+    grid-row: 6;
+
+    display: block;
+
     width: 100%;
+
     margin: 0;
+
+    padding:
+      0
+      max(20px, calc(env(safe-area-inset-right) + 20px))
+      24px
+      max(20px, calc(env(safe-area-inset-left) + 20px));
   }
 
   .resume-actions .button-primary {
     width: 100%;
     min-width: 0;
-    min-height: 50px;
+    min-height: 52px;
 
-    padding: 0 16px;
+    padding: 0 15px;
 
-    border-radius: 13px;
+    border-radius: 14px;
 
     font-size: 12.5px;
   }
+
+
+  /*
+    Remove any old mobile hero padding because
+    hero-copy is display: contents now.
+  */
+  .hero-copy {
+    padding: 0;
+  }
 }
 
 
-/* Slightly smaller phones */
+/* Smaller iPhones */
 @media (max-width: 390px) {
 
+  .hero {
+    grid-template-columns: 41% 59%;
+  }
+
   .portrait-wrap {
-    height: 195px;
-    max-height: 195px;
+    height: 225px;
+    min-height: 225px;
+    max-height: 225px;
   }
 
   .portrait {
-    height: 192px;
-  }
-
-  .hero-copy {
-    padding-top: 20px;
+    object-position: 50% 28%;
   }
 
   h1 {
-    font-size: 45px;
+    padding-top: 23px;
+    padding-left: 14px;
+
+    font-size: 37px;
+  }
+
+  .headline {
+    padding-left: 14px;
+    font-size: 11.5px;
+  }
+
+  .education {
+    padding-left: 14px;
+    font-size: 9.5px;
   }
 
   .bio {
+    padding-top: 18px;
     font-size: 12px;
-    line-height: 1.45;
+    line-height: 1.47;
   }
 }
 
-/* ===== END NFC IPHONE ABOVE-THE-FOLD HERO ===== */
+
+/* Very narrow phones */
+@media (max-width: 360px) {
+
+  .hero {
+    grid-template-columns: 40% 60%;
+  }
+
+  .portrait-wrap {
+    height: 210px;
+    min-height: 210px;
+    max-height: 210px;
+  }
+
+  h1 {
+    font-size: 34px;
+  }
+
+  .headline {
+    font-size: 11px;
+  }
+
+  .education {
+    font-size: 9px;
+  }
+}
+
+/* ===== END MOBILE EXECUTIVE IDENTITY SPLIT ===== */
